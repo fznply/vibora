@@ -92,7 +92,8 @@ cdef class DiskFile(UploadedFile):
 
     def __init__(self, filename=None, temporary_dir=None):
         super().__init__(filename=filename)
-        self.temporary_path = os.path.join(temporary_dir or gettempdir(), str(uuid.uuid4()))
+        dir_tmp = temporary_dir or os.getenv("VIBORA_TMP_PATH") or gettempdir()
+        self.temporary_path = os.path.join(dir_tmp, str(uuid.uuid4()))
         self.pointer = 0
         self.delete_on_exit = True
 
