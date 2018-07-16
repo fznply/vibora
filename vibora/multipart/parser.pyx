@@ -226,7 +226,13 @@ cdef class MultipartParser:
         cdef list pieces
         pos = header.find(b'Content-Disposition: form-data;') + 31
         header = header[pos:]
-        values = header.strip().split(b';')
+        values = []
+        xvalues = header.strip().split(b';')
+        for xvalue in xvalues:
+            xvalue = xvalue.strip()
+            yvalues = xvalue.split(b'\r\n')
+            for yvalue in yvalues:
+                values.append(yvalue)
         for value in values:
             value = value.strip()
             pieces = value.split(b'=')
