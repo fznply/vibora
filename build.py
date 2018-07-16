@@ -18,6 +18,7 @@ for root, dirs, files in os.walk(project_path):
 
 # Calling Cython to compile our extensions.
 cython = os.path.join(os.path.dirname(sys.executable), "cython")
+cython = '/usr/local/bin/cython'
 process = subprocess.run([cython] + list(pending_compilation) + ["--fast-fail"])
 if process.returncode != 0:
     raise SystemExit(f"Failed to compile .pyx files to C.")
